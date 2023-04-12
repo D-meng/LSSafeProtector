@@ -98,6 +98,7 @@ static NSMutableSet *NSNotificationCenterSafeSwizzledClasses() {
         [self safe_exchangeInstanceMethod:[NSNotificationCenter class] originalSel:@selector(addObserver:selector:name:object:) newSel:@selector(safe_addObserver:selector:name:object:)];
     });
 }
+
 -(void)safe_addObserver:(id)observer selector:(SEL)aSelector name:(NSNotificationName)aName object:(id)anObject
 {
     if([observer isKindOfClass:[NSObject class]])
@@ -107,7 +108,5 @@ static NSMutableSet *NSNotificationCenterSafeSwizzledClasses() {
         [self safe_addObserver:observer selector:aSelector name:aName object:anObject];
     }
 }
-
-
 
 @end
