@@ -100,9 +100,12 @@ static NSMutableSet *NSNotificationCenterSafeSwizzledClasses() {
 }
 -(void)safe_addObserver:(id)observer selector:(SEL)aSelector name:(NSNotificationName)aName object:(id)anObject
 {
-    [observer setIsNotification:YES];
-    [observer safe_changeDidDeallocSignal];
-    [self safe_addObserver:observer selector:aSelector name:aName object:anObject];
+    if([observer isKindOfClass:[NSObject class]])
+    {
+        [observer setIsNotification:YES];
+        [observer safe_changeDidDeallocSignal];
+        [self safe_addObserver:observer selector:aSelector name:aName object:anObject];
+    }
 }
 
 
